@@ -9,7 +9,7 @@ type
         CARD_TEMPLATE_ID*: string
 
 
-if paramCount() < 6:
+if paramCount() < 5:
     echo "ERROR: Usage: kanji_parser_3000 <API_KEY> <DECK_NAME> <JP_FIELD_KEY> <TRANSLATION_FIELD_KEY> <CARD_TEMPLATE_ID>"
 
 let cmdParams* = CmdParams(API_KEY: paramStr(1),
