@@ -3,9 +3,9 @@ import cmd_params_m
 
 type
     Card* = object
-        id: string
-        japanese: string
-        translation: string
+        id*: string
+        japanese*: string
+        translation*: string
 
 proc isOfCardTemplate*(json: JsonNode): bool =
     return json.hasKey("template-id") and json["template-id"].getStr == cmdParams.CARD_TEMPLATE_ID

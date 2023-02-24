@@ -1,5 +1,6 @@
 import std/[json]
 import card_m
+import text_m
 
 type CardStack* = seq[Card]
 
@@ -9,3 +10,10 @@ proc parseCards*(json: JsonNode): CardStack =
         if doParseCard(card):
             cards.add parseCard(card)
     return cards
+
+proc filterKanjiCards*(cards: CardStack): CardStack =
+    var kanjiCards: seq[Card]
+    for card in cards:
+        if hasKanji(card.japanese):
+            kanjiCards.add card
+    return kanjiCards
