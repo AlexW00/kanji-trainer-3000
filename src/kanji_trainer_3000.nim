@@ -9,7 +9,7 @@ import std/random
 
 proc main() {.async.} =
     let bm = ""
-    let cardsResult = await getCardsFromDeck(cmdParams.DECK_NAME, bm)
+    let cardsResult = await getCardsFromDeck(cmdParams.DECK_ID, bm)
     var cards = cardsResult.result
     # shuffle sequence
     randomize()

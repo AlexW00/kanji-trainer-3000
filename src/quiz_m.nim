@@ -3,7 +3,7 @@ import card_m
 import std/options
 import text_m
 import quotes_m
-
+import std/strutils
 type
     Quiz* = object
         startCards: CardStack
@@ -43,10 +43,10 @@ proc newQuiz*(cards: CardStack): Quiz =
 
 proc getFinalStats*(quiz: Quiz): string =
     let totalCards = quiz.completedCards.len + quiz.falseCards.len
-    let percentCorrect = totalCards / quiz.totalReviewed
+    let percentCorrect = totalCards / (if quiz.totalReviewed - 1 == 0: 1 else: quiz.totalReviewed - 1)
     return "--- FINAL STATS ---" & "\n" &
         "Total cards: " & $totalCards & "\n" &
-        "Answers: " & $quiz.totalReviewed & "\n" &
+        "Answers: " & $(quiz.totalReviewed - 1) & "\n" &
         "Percentage: " & $percentCorrect & "%"
 
 proc startQuiz*(quiz: var Quiz) =
@@ -62,13 +62,15 @@ proc startQuiz*(quiz: var Quiz) =
             echo "Kanji: " & kanji
             stdout.write("Furigana: ")
             let answer = readLine(stdin)
+            if answer.toLower == "i lost":
+                break
             if answer == furigana:
                 echo "✅" & "\n"
                 answerCard(quiz, card.get, true)
             else:
-                echo "❌ '" & answer & "' != '" & furigana & "'"  & "\n"
+                echo "❌ '" & answer & "' != '" & furigana & "' " & "(" & card.get.translation & ")" & "\n" 
                 answerCard(quiz, card.get, false)
     
-    echo getFinalStats(quiz) & "\n"
+    echo "\n" & getFinalStats(quiz) & "\n"
     echo "> " & getEndQuote()
 
