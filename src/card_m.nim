@@ -7,6 +7,12 @@ type
         japanese*: string
         translation*: string
 
+proc hasLink*(card: Card): bool =
+    for c in card.japanese:
+        if c == '[':
+            return true
+    return false
+    
 proc isOfCardTemplate*(json: JsonNode): bool =
     return json.hasKey("template-id") and json["template-id"].getStr == cmdParams.CARD_TEMPLATE_ID
 
@@ -19,7 +25,6 @@ proc isParseableCard*(json: JsonNode): bool =
 proc doParseCard*(json: JsonNode): bool =
     return isOfCardTemplate(json) and isParseableCard(json)
 
-# parse json card to Card object
 proc parseCard*(json: JsonNode): Card =
     let fields = json["fields"]
     Card(
