@@ -17,6 +17,3 @@ let cmdParams* = CmdParams(API_KEY: paramStr(1),
                           JP_FIELD_KEY: paramStr(4),
                           TRANSLATION_FIELD_KEY: paramStr(5),
                           )
-
-# log out the object
-echo cmdParams

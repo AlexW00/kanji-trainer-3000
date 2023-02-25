@@ -9,14 +9,13 @@ import std/random
 
 proc main() {.async.} =
     let bm = ""
+    # todo: get more 
     let cardsResult = await getCardsFromDeck(cmdParams.DECK_ID, bm)
     var cards = cardsResult.result
-    # shuffle sequence
+
     randomize()
     shuffle(cards)
-    # take first 5 cards
-    cards = cards[0..4]
-    echo "cards: ", cards.len
+
     var quiz = newQuiz(cards)
     startQuiz(quiz)
 

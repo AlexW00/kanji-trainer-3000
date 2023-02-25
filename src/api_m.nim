@@ -14,7 +14,7 @@ proc auth(client: AsyncHttpClient) =
     client.headers["Authorization"] = "Basic " & base64.encode(cmdParams.API_KEY & ":")
 
 proc getCardsFromDeck*(deck: string, bookmark: string): Future[ApiResult[CardStack]] {.async.} =
-    echo "Getting cards..."
+    # echo "Getting cards...\n"
     let url = CARDS_ENDPOINT & "?limit=99" & "?deck-id=" & deck & (if bookmark != "": "&bookmark=" & bookmark else: "")
     let client = newAsyncHttpClient()
     auth(client)
